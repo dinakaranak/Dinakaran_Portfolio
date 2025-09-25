@@ -10,14 +10,14 @@ const Experience = () => {
       company: "Adventure Technology Solutions Pvt. Ltd",
       period: "July 2025 – Present",
       description: "Currently working on a Billing Software project, implementing features like product management, customer handling, payment processing, and invoice generation. Developing scalable and user-friendly solutions using MongoDB, Express.js, React.js, and Node.js.",
-      skills: ["MongoDB", "Express.js", "React", "Node.js", "AWS", "Git", "Github", "vercel", "Electron.js", "ReactNative"]
+      skills: ["MongoDB", "Express.js", "React.js", "Node.js", "AWS", "Git", "Github", "vercel", "Electron.js", "ReactNative"]
     },
     {
       title: "MERN Stack Developer Intern",
       company: "Adventure Technology Solutions Pvt. Ltd",
       period: "Mar 2025 – Jun 2025",
       description: "Worked on live projects like an Admin Dashboard and Product Management System with complete CRUD operations, search filters, and image upload. Collaborated using GitHub, followed Agile methodologies, and deployed websites on AWS Cloud, Render, Vercel, and MongoDB Atlas for production use.",
-      skills: ["React", "Node.js", "MongoDB", "GitHub", "Agile", "AWS", "Vercel"]
+      skills: ["React.js", "Node.js", "MongoDB", "GitHub", "HTML", "CSS", "AWS", "Vercel", "JavaScript", "Express.js"]
     },
     {
       title: "Full Stack Web Development Training",
