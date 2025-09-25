@@ -27,7 +27,7 @@ const Header = () => {
   return (
     <>
       <header className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900 shadow-lg py-2' : 'bg-transparent py-4'}`}>
-        <div className="max-w-6xl mx-auto px-4 flex justify-between items-center">
+        <div className="max-w-8xl mx-auto px-4 flex justify-between items-center">
           <motion.div 
             className="text-xl font-bold text-white animate-pulse"
             whileHover={{ scale: 1.1 }}

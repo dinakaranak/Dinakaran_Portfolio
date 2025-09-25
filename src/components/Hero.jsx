@@ -12,8 +12,8 @@ const Hero = () => {
           {/* className="section-container bg-gradient-to-b from-gray-900 to-gray-800 pt-16 pb-8" */}
       
     <section id="about" className="min-h-screen flex items-center justify-center  bg-gradient-to-b from-gray-900 to-gray-800 pt-16 pb-8
-     section-container md:pt-20 px-4">
-      <div className="container max-w-6xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+     section-container md:pt-6 px-4">
+      <div className="container max-w-8xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-center">
         {/* Text Content */}
         <motion.div 
           className="text-center md:text-left order-2 md:order-1"

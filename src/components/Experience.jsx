@@ -48,7 +48,7 @@ const Experience = () => {
 
   return (
     <section id="experience" className="section-container py-10 md:py-10 bg-gradient-to-b from-gray-900 to-gray-800">
-      <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+      <div className="container mx-auto px-4 md:px-6 max-w-8xl">
         <h2 className={`section-title text-4xl md:text-5xl font-bold text-center mb-16 text-white opacity-0 transition-opacity duration-700 ${isVisible ? 'opacity-100' : ''}`}>
           <span className="relative inline-block">
             <span className="absolute -inset-2 bg-blue-600 opacity-20 blur-md"></span>
