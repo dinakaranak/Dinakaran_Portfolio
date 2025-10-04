@@ -5,6 +5,8 @@ const Footer = () => {
   const [isVisible, setIsVisible] = useState(false)
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [submitError, setSubmitError] = useState('')
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -31,27 +33,71 @@ const Footer = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
+    // Clear error when user starts typing
+    if (submitError) setSubmitError('')
   }
 
-  const handleSubmit = (e) => {
-  e.preventDefault()
-  
-  // Store form data in localStorage
-  const formSubmissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]')
-  const newSubmission = {
-    ...formData,
-    timestamp: new Date().toISOString()
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsLoading(true)
+    setSubmitError('')
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/send-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message')
+      }
+
+      if (data.success) {
+        console.log('✅ Email sent successfully:', data)
+        
+        // Store form data in localStorage as backup
+        const formSubmissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]')
+        const newSubmission = {
+          ...formData,
+          timestamp: new Date().toISOString(),
+          status: 'sent'
+        }
+        formSubmissions.push(newSubmission)
+        localStorage.setItem('formSubmissions', JSON.stringify(formSubmissions))
+        
+        setIsSubmitted(true)
+        setFormData({ name: '', email: '', message: '' })
+        
+        // Reset submission status after 5 seconds
+        setTimeout(() => {
+          setIsSubmitted(false)
+        }, 5000)
+      } else {
+        throw new Error(data.error || 'Failed to send message')
+      }
+    } catch (error) {
+      console.error('❌ Error sending email:', error)
+      setSubmitError(error.message || 'Failed to send message. Please try again.')
+      
+      // Store failed submission in localStorage
+      const formSubmissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]')
+      const newSubmission = {
+        ...formData,
+        timestamp: new Date().toISOString(),
+        status: 'failed',
+        error: error.message
+      }
+      formSubmissions.push(newSubmission)
+      localStorage.setItem('formSubmissions', JSON.stringify(formSubmissions))
+    } finally {
+      setIsLoading(false)
+    }
   }
-  formSubmissions.push(newSubmission)
-  localStorage.setItem('formSubmissions', JSON.stringify(formSubmissions))
-  
-  console.log('Form submitted:', formData)
-  setIsSubmitted(true)
-  setFormData({ name: '', email: '', message: '' })
-  
-  // Reset submission status after 3 seconds
-  setTimeout(() => setIsSubmitted(false), 3000)
-}
 
   return (
     <footer id="contact" className="section-container bg-gradient-to-b from-black to-black pt-10 pb-4">
@@ -60,7 +106,7 @@ const Footer = () => {
           <span className="relative inline-block">
             <span className="absolute -inset-2 bg-blue-600 opacity-10 blur-2xl"></span>
             <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-300">
-              Connect Us
+              Connect With Me
             </span>
           </span>
         </h2>
@@ -161,8 +207,16 @@ const Footer = () => {
               <h3 className="text-2xl font-bold text-white mb-6">Send me a message</h3>
               
               {isSubmitted && (
-                <div className="bg-green-900 text-green-200 p-4 rounded-lg mb-6">
-                  Thank you for your message! I'll get back to you soon.
+                <div className="bg-green-900 border border-green-700 text-green-200 p-4 rounded-lg mb-6">
+                  <p className="font-semibold">✅ Message sent successfully!</p>
+                  <p className="text-sm mt-1">Thank you for your message! I'll get back to you soon.</p>
+                </div>
+              )}
+              
+              {submitError && (
+                <div className="bg-red-900 border border-red-700 text-red-200 p-4 rounded-lg mb-6">
+                  <p className="font-semibold">❌ Error sending message</p>
+                  <p className="text-sm mt-1">{submitError}</p>
                 </div>
               )}
               
@@ -176,7 +230,8 @@ const Footer = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                    disabled={isLoading}
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="Enter your name"
                   />
                 </div>
@@ -190,7 +245,8 @@ const Footer = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                    disabled={isLoading}
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="Enter your email"
                   />
                 </div>
@@ -204,17 +260,31 @@ const Footer = () => {
                     onChange={handleInputChange}
                     required
                     rows="5"
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                    disabled={isLoading}
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="Enter your message"
                   ></textarea>
                 </div>
                 
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-lg font-medium hover:from-blue-700 hover:to-blue-700 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
+                  disabled={isLoading}
+                  className="w-full flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-lg font-medium hover:from-blue-700 hover:to-blue-700 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
                 >
-                  Send Message
-                  <FaPaperPlane className="ml-2" />
+                  {isLoading ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <FaPaperPlane className="ml-2" />
+                    </>
+                  )}
                 </button>
               </div>
             </form>
