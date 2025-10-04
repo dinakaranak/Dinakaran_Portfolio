@@ -7,44 +7,44 @@ const Projects = () => {
   const [showAllFeatures, setShowAllFeatures] = useState({})
   
   const projects = [
-    {
-      title: "BillZen Invoices",
-      description: "A comprehensive billing software with desktop app using Electron.js. Features cashier login for billing operations with dual printer support (thermal & A4), credit management, and admin panel for complete business management.",
-      tech: ["React.js", "Electron.js", "Tailwind CSS", "Node.js", "Express.js", "MongoDB"],
-      link: "https://billing-invoices.vercel.app/",
-      github: "https://github.com/dinakaranak",
-      liveLink: "View Desktop App",
-      icon: <FaReceipt className="text-4xl" />,
-      status: "Completed",
-      features: [
-        "Cashier & Admin login systems",
-        "Dual printer support (Thermal & A4)",
-        "Credit management system",
-        "Product & stock management",
-        "Customer & seller details tracking",
-        "Expense tracking & reports",
-        "Marketing campaign management"
-      ]
-    },
-    {
-      title: "E-Commerce Platform",
-      description: "Full-featured e-commerce platform with Google authentication, advanced product categorization, secure Razorpay payments, and comprehensive admin panel for product and offer management.",
-      tech: ["React.js", "Tailwind CSS", "Node.js", "Express.js", "MongoDB", "Razorpay"],
-      link: "https://sky-cart-eta.vercel.app/",
-      github: "https://github.com/dinakaranak",
-      liveLink: "Shop Now",
-      icon: <FaShoppingCart className="text-4xl" />,
-      status: "Completed",
-      features: [
-        "Google OAuth authentication",
-        "Advanced product categorization",
-        "Razorpay payment integration",
-        "Admin panel with offer management",
-        "Order tracking system",
-        "Wishlist & favorites",
-        "Product reviews & ratings"
-      ]
-    },
+    // {
+    //   title: "BillZen Invoices",
+    //   description: "A comprehensive billing software with desktop app using Electron.js. Features cashier login for billing operations with dual printer support (thermal & A4), credit management, and admin panel for complete business management.",
+    //   tech: ["React.js", "Electron.js", "Tailwind CSS", "Node.js", "Express.js", "MongoDB"],
+    //   link: "https://billing-invoices.vercel.app/",
+    //   github: "https://github.com/dinakaranak",
+    //   liveLink: "View Desktop App",
+    //   icon: <FaReceipt className="text-4xl" />,
+    //   status: "Completed",
+    //   features: [
+    //     "Cashier & Admin login systems",
+    //     "Dual printer support (Thermal & A4)",
+    //     "Credit management system",
+    //     "Product & stock management",
+    //     "Customer & seller details tracking",
+    //     "Expense tracking & reports",
+    //     "Marketing campaign management"
+    //   ]
+    // },
+    // {
+    //   title: "E-Commerce Platform",
+    //   description: "Full-featured e-commerce platform with Google authentication, advanced product categorization, secure Razorpay payments, and comprehensive admin panel for product and offer management.",
+    //   tech: ["React.js", "Tailwind CSS", "Node.js", "Express.js", "MongoDB", "Razorpay"],
+    //   link: "https://sky-cart-eta.vercel.app/",
+    //   github: "https://github.com/dinakaranak",
+    //   liveLink: "Shop Now",
+    //   icon: <FaShoppingCart className="text-4xl" />,
+    //   status: "Completed",
+    //   features: [
+    //     "Google OAuth authentication",
+    //     "Advanced product categorization",
+    //     "Razorpay payment integration",
+    //     "Admin panel with offer management",
+    //     "Order tracking system",
+    //     "Wishlist & favorites",
+    //     "Product reviews & ratings"
+    //   ]
+    // },
     {
       title: "Foodie Restaurant App",
       description: "Cross-platform restaurant application with React Native mobile app and React.js admin panel. Features attractive UI/UX, real-time order management, special offers, and comprehensive admin dashboard.",
@@ -102,25 +102,25 @@ const Projects = () => {
         "Product comparison feature"
       ]
     },
-    {
-      title: "WeatherSphere Pro",
-      description: "A sophisticated weather forecasting application with real-time data, interactive charts, location-based forecasts, and beautiful UI. Integrates multiple weather APIs for accurate predictions.",
-      tech: ["React.js", "Chart.js", "Weather API", "Geolocation API", "Tailwind CSS"],
-      link: "https://weather-app-ten-roan-38.vercel.app/",
-      github: "https://github.com/dinakaranak",
-      liveLink: "Check Weather",
-      icon: <FaCloudSun className="text-4xl" />,
-      status: "Completed",
-      features: [
-        "Real-time weather updates",
-        "Interactive weather charts",
-        "Location-based forecasts",
-        "Beautiful UI/UX design",
-        "Multiple location support",
-        "Weather alerts & notifications",
-        "Historical weather data"
-      ]
-    }
+    // {
+    //   title: "WeatherSphere Pro",
+    //   description: "A sophisticated weather forecasting application with real-time data, interactive charts, location-based forecasts, and beautiful UI. Integrates multiple weather APIs for accurate predictions.",
+    //   tech: ["React.js", "Chart.js", "Weather API", "Geolocation API", "Tailwind CSS"],
+    //   link: "https://weather-app-ten-roan-38.vercel.app/",
+    //   github: "https://github.com/dinakaranak",
+    //   liveLink: "Check Weather",
+    //   icon: <FaCloudSun className="text-4xl" />,
+    //   status: "Completed",
+    //   features: [
+    //     "Real-time weather updates",
+    //     "Interactive weather charts",
+    //     "Location-based forecasts",
+    //     "Beautiful UI/UX design",
+    //     "Multiple location support",
+    //     "Weather alerts & notifications",
+    //     "Historical weather data"
+    //   ]
+    // }
   ]
 
   useEffect(() => {
